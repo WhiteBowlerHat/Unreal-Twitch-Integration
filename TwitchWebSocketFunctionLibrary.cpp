@@ -62,7 +62,7 @@ void UTwitchWebSocketFunctionLibrary::GetMessageType(FString Message, FString& M
 			else if (OutArray[2] == "WHISPER") {
 				MessageType = "WHISPER";
 			} 
-			else if (OutArray[1] == "JOIN") {
+			else if (OutArray[1] == "JOIN") { 
 				MessageType = "JOIN";
 			}
 			else if (OutArray[1] == "353") {
@@ -78,8 +78,10 @@ void UTwitchWebSocketFunctionLibrary::GetMessageType(FString Message, FString& M
 			if (OutArray[2] == "USERNOTICE") {
 				MessageType = "USERNOTICE";
 			}
-			else if (OutArray[1] == "JOIN") {
-				MessageType = "JOIN";
+			else if (OutArray[1] == "JOIN") { 	/*The Twitch IRC server sends your bot the following messages because the bot requests the membership capability.   */
+				MessageType = "JOIN";     	/*A user joined the chat room -> https://dev.twitch.tv/docs/irc/membership/*/ 
+			} else if (OutArray[1] == "PART") {	/*The Twitch IRC server sends your bot the following messages because the bot requests the membership capability.   */
+				MessageType = "PART"		/*A user has left the chat room -> https://dev.twitch.tv/docs/irc/membership/*/ 
 			}
 			else {
 				MessageType = "UNDEFINED L2";
